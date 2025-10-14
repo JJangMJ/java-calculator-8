@@ -19,29 +19,45 @@ public class StringCalculator {
     }
 
     public void start() {
-        String string = inputView.readString();
-        List<Integer> numbers = new ArrayList<>();
+        String originalString = inputView.readString();
+        String[] splitString;
 
-        if (hasCustomSpliter(string)) {
-            String substring = string.substring(BEGIN_INDEX_OF_SUBSTRING);
-            String[] splitString = splitSubString(substring, string);
-            parseInteger(splitString, numbers);
+        if (hasCustomDelimiter(originalString)) {
+            String substring = originalString.substring(BEGIN_INDEX_OF_SUBSTRING);
+            char customDelimiter = originalString.charAt(INDEX_OF_CUSTOM_DELIMITER);
+            splitString = splitString(substring, customDelimiter);
+        } else {
+            splitString = splitString(originalString, null);
         }
+
+        List<Integer> numbers = parseInteger(splitString);
+        int totalSum = sum(numbers);
+        outputView.printResult(totalSum);
     }
 
-    private boolean hasCustomSpliter(String string) {
+    private boolean hasCustomDelimiter(String string) {
         return string.startsWith("//") && (string.startsWith("\\n", 3));
     }
 
-    private static String[] splitSubString(String substring, String string) {
-        return substring.split(BasicDelimiter.COMMA.getDelimiter() + "|"
+    private String[] splitString(String string, Character customDelimiter) {
+        if (customDelimiter == null) {
+            return string.split(BasicDelimiter.COMMA.getDelimiter() + "|"
+                    + BasicDelimiter.COLON.getDelimiter());
+        }
+        return string.split(BasicDelimiter.COMMA.getDelimiter() + "|"
                 + BasicDelimiter.COLON.getDelimiter() + "|"
-                + CustomDelimiter.createDelimiter(string.charAt(INDEX_OF_CUSTOM_DELIMITER)));
+                + CustomDelimiter.createDelimiter(customDelimiter));
     }
 
-    private void parseInteger(String[] splitString, List<Integer> numbers) {
+    private int sum(List<Integer> numbers) {
+        return numbers.stream().reduce(Integer::sum).get();
+    }
+
+    private List<Integer> parseInteger(String[] splitString) {
+        List<Integer> numbers = new ArrayList<>();
         for (String s : splitString) {
             numbers.add(Integer.parseInt(s.replaceAll("[^0-9]", "")));
         }
+        return numbers;
     }
 }
