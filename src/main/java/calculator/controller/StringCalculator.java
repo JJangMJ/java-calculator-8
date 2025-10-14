@@ -20,26 +20,26 @@ public class StringCalculator {
 
     public void start() {
         String originalString = inputView.readString();
-        String[] splitString;
+        String[] splitString = splitString(originalString);
+        List<Integer> numbers = parseIntegers(splitString);
+        int totalSum = sum(numbers);
+        outputView.printResult(totalSum);
+    }
 
+    private String[] splitString(String originalString) {
         if (hasCustomDelimiter(originalString)) {
             String substring = originalString.substring(BEGIN_INDEX_OF_SUBSTRING);
             char customDelimiter = originalString.charAt(INDEX_OF_CUSTOM_DELIMITER);
-            splitString = splitString(substring, customDelimiter);
-        } else {
-            splitString = splitString(originalString, null);
+            return splitStringByDelimiters(substring, customDelimiter);
         }
-
-        List<Integer> numbers = parseInteger(splitString);
-        int totalSum = sum(numbers);
-        outputView.printResult(totalSum);
+        return splitStringByDelimiters(originalString, null);
     }
 
     private boolean hasCustomDelimiter(String string) {
         return string.startsWith("//") && (string.startsWith("\\n", 3));
     }
 
-    private String[] splitString(String string, Character customDelimiter) {
+    private String[] splitStringByDelimiters(String string, Character customDelimiter) {
         if (customDelimiter == null) {
             return string.split(BasicDelimiter.COMMA.getDelimiter() + "|"
                     + BasicDelimiter.COLON.getDelimiter());
@@ -49,15 +49,15 @@ public class StringCalculator {
                 + CustomDelimiter.createDelimiter(customDelimiter));
     }
 
-    private int sum(List<Integer> numbers) {
-        return numbers.stream().reduce(Integer::sum).get();
-    }
-
-    private List<Integer> parseInteger(String[] splitString) {
+    private List<Integer> parseIntegers(String[] splitString) {
         List<Integer> numbers = new ArrayList<>();
         for (String s : splitString) {
             numbers.add(Integer.parseInt(s.replaceAll("[^0-9]", "")));
         }
         return numbers;
+    }
+
+    private int sum(List<Integer> numbers) {
+        return numbers.stream().reduce(Integer::sum).get();
     }
 }
