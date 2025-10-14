@@ -1,9 +1,11 @@
 package calculator.domain;
 
-public record CustomDelimiter(
-        Character delimiter
-) {
-    public static CustomDelimiter createDelimiter(Character delimiter) {
-        return new CustomDelimiter(delimiter);
+public class CustomDelimiter {
+
+    protected CustomDelimiter() {
+    }
+
+    public static Character createDelimiter(Character delimiter) {
+        return delimiter;
     }
 }
