@@ -7,9 +7,9 @@ public class StringCalculator {
     private final InputView inputView;
     private final OutputView outputView;
 
-    public StringCalculator(InputView inputView, OutputView outputView) {
-        this.inputView = inputView;
-        this.outputView = outputView;
+    public StringCalculator() {
+        this.inputView = new InputView();
+        this.outputView = new OutputView();
     }
 
     public void start() {
