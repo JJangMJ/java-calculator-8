@@ -1,10 +1,11 @@
 package calculator.controller;
 
-import calculator.domain.CustomSpliter;
+import calculator.domain.CustomDelimiter;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 
 public class StringCalculator {
+    private final static int INDEX_OF_CUSTOM_SPLITER = 2;
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -16,8 +17,13 @@ public class StringCalculator {
     public void start() {
         String string = inputView.readString();
 
-        if (string.startsWith("//") && (string.startsWith("\\n", 3))) {
-            CustomSpliter customSpliter = new CustomSpliter(string.charAt(2));
+        if (hasCustomSpliter(string)) {
+            CustomDelimiter customDelimiter = new CustomDelimiter(string.charAt(INDEX_OF_CUSTOM_SPLITER));
         }
+
+    }
+
+    private boolean hasCustomSpliter(String string) {
+        return string.startsWith("//") && (string.startsWith("\\n", 3));
     }
 }
