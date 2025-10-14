@@ -41,7 +41,7 @@ public class StringCalculator {
 
     private void parseInteger(String[] splitString, List<Integer> numbers) {
         for (String s : splitString) {
-            numbers.add(Integer.parseInt(s));
+            numbers.add(Integer.parseInt(s.replaceAll("[^0-9]", "")));
         }
     }
 }
