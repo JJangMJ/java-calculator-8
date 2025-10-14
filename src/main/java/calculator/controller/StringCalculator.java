@@ -52,7 +52,11 @@ public class StringCalculator {
     private List<Integer> parseIntegers(String[] splitString) {
         List<Integer> numbers = new ArrayList<>();
         for (String s : splitString) {
-            numbers.add(Integer.parseInt(s.replaceAll("[^0-9]", "")));
+            String replacedAll = s.replaceAll("[^0-9]", "");
+            if (replacedAll.isEmpty()) {
+                replacedAll = "0";
+            }
+            numbers.add(Integer.parseInt(replacedAll));
         }
         return numbers;
     }
