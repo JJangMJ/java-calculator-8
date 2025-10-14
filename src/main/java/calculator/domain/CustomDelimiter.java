@@ -1,13 +1,9 @@
 package calculator.domain;
 
-public class CustomDelimiter {
-    private final Character delimiter;
-
-    public CustomDelimiter(Character delimiter) {
-        this.delimiter = delimiter;
-    }
-
-    public Character getDelimiter() {
-        return delimiter;
+public record CustomDelimiter(
+        Character delimiter
+) {
+    public static CustomDelimiter createDelimiter(Character delimiter) {
+        return new CustomDelimiter(delimiter);
     }
 }
