@@ -1,5 +1,6 @@
 package calculator.controller;
 
+import calculator.domain.CustomSpliter;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 
@@ -14,5 +15,9 @@ public class StringCalculator {
 
     public void start() {
         String string = inputView.readString();
+
+        if (string.startsWith("//") && (string.startsWith("\\n", 3))) {
+            CustomSpliter customSpliter = new CustomSpliter(string.charAt(2));
+        }
     }
 }
