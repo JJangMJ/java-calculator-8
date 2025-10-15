@@ -1,11 +1,13 @@
 package calculator.domain;
 
 public class CustomDelimiter {
+    private final char delimiter;
 
-    protected CustomDelimiter() {
+    public CustomDelimiter(char delimiter) {
+        this.delimiter = delimiter;
     }
 
-    public static Character getDelimiter(Character delimiter) {
-        return delimiter;
+    public String getDelimiter() {
+        return String.valueOf(delimiter);
     }
 }

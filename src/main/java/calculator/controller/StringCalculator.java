@@ -1,17 +1,15 @@
 package calculator.controller;
 
-import calculator.domain.BasicDelimiter;
 import calculator.domain.CustomDelimiter;
+import calculator.domain.Spliter;
 import calculator.exception.ErrorMessage;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class StringCalculator {
     private final static int INDEX_OF_CUSTOM_DELIMITER = 2;
-    private final static int BEGIN_INDEX_OF_SUBSTRING = 5;
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -29,28 +27,19 @@ public class StringCalculator {
     }
 
     private String[] splitString(String originalString) {
+        Spliter spliter = new Spliter(originalString);
+        CustomDelimiter delimiter = null;
         if (hasCustomDelimiter(originalString)) {
-            String substring = originalString.substring(BEGIN_INDEX_OF_SUBSTRING);
             char customDelimiter = originalString.charAt(INDEX_OF_CUSTOM_DELIMITER);
             validateCustomDelimiter(customDelimiter);
-            return splitStringByDelimiters(substring, customDelimiter);
+            delimiter = new CustomDelimiter(customDelimiter);
+            return spliter.split(delimiter);
         }
-        return splitStringByDelimiters(originalString, null);
+        return spliter.split(delimiter);
     }
 
     private boolean hasCustomDelimiter(String string) {
         return string.startsWith("//") && (string.startsWith("\\n", 3));
-    }
-
-    private String[] splitStringByDelimiters(String string, Character customDelimiter) {
-        String comma = Pattern.quote(BasicDelimiter.COMMA.getDelimiter());
-        String colon = Pattern.quote(BasicDelimiter.COLON.getDelimiter());
-        String custom = Pattern.quote(String.valueOf(CustomDelimiter.getDelimiter(customDelimiter)));
-
-        if (customDelimiter == null) {
-            return string.split(comma + "|" + colon);
-        }
-        return string.split(comma + "|" + colon + "|" + custom);
     }
 
     private List<Integer> parseIntegers(String[] splitString) {
