@@ -6,6 +6,7 @@ import calculator.view.InputView;
 import calculator.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
     private final static int INDEX_OF_CUSTOM_DELIMITER = 2;
@@ -43,13 +44,14 @@ public class StringCalculator {
     }
 
     private String[] splitStringByDelimiters(String string, Character customDelimiter) {
+        String comma = Pattern.quote(BasicDelimiter.COMMA.getDelimiter());
+        String colon = Pattern.quote(BasicDelimiter.COLON.getDelimiter());
+        String custom = Pattern.quote(String.valueOf(CustomDelimiter.getDelimiter(customDelimiter)));
+
         if (customDelimiter == null) {
-            return string.split(BasicDelimiter.COMMA.getDelimiter() + "|"
-                    + BasicDelimiter.COLON.getDelimiter());
+            return string.split(comma + "|" + colon);
         }
-        return string.split(BasicDelimiter.COMMA.getDelimiter() + "|"
-                + BasicDelimiter.COLON.getDelimiter() + "|"
-                + CustomDelimiter.getDelimiter(customDelimiter));
+        return string.split(comma + "|" + colon + "|" + custom);
     }
 
     private List<Integer> parseIntegers(String[] splitString) {
