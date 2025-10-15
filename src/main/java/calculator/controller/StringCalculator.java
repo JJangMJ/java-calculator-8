@@ -56,11 +56,10 @@ public class StringCalculator {
     private List<Integer> parseIntegers(String[] splitString) {
         List<Integer> numbers = new ArrayList<>();
         for (String string : splitString) {
-            String replacedAll = string.replaceAll("^[0-9]*$", "");
+            String replacedAll = string.replaceAll("[^0-9-]", "");
             if (replacedAll.isEmpty()) replacedAll = "0";
             validateNumber(replacedAll);
-            int number = Integer.parseInt(replacedAll);
-            numbers.add(number);
+            numbers.add(Integer.parseInt(replacedAll));
         }
         return numbers;
     }
