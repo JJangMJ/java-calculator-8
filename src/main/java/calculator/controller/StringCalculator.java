@@ -54,10 +54,12 @@ public class StringCalculator {
 
     private List<Integer> parseIntegers(String[] splitString) {
         List<Integer> numbers = new ArrayList<>();
-        for (String s : splitString) {
-            String replacedAll = s.replaceAll("[^0-9]", "");
+        for (String string : splitString) {
+            validateNumber(string);
+            String replacedAll = string.replaceAll("[^0-9]", "");
             if (replacedAll.isEmpty()) replacedAll = "0";
-            numbers.add(Integer.parseInt(replacedAll));
+            int number = Integer.parseInt(replacedAll);
+            numbers.add(number);
         }
         return numbers;
     }
@@ -69,6 +71,12 @@ public class StringCalculator {
     private void validateCustomDelimiter(Character customDelimiter) {
         if (Character.isDigit(customDelimiter) || Character.isWhitespace(customDelimiter)) {
             throw new IllegalArgumentException("구분자는 숫자나 공백이 될 수 없습니다.");
+        }
+    }
+
+    private void validateNumber(String string) {
+        if (Integer.parseInt(string) < 0) {
+            throw new IllegalArgumentException("음수는 허용되지 않습니다.");
         }
     }
 }
