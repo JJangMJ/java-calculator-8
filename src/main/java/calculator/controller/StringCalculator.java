@@ -42,7 +42,7 @@ public class StringCalculator {
     }
 
     private int sum(List<Integer> numbers) {
-        return numbers.stream().reduce(Integer::sum).get();
+        return numbers.stream().mapToInt(Integer::intValue).sum();
     }
 
     private boolean hasCustomDelimiter(String string) {
