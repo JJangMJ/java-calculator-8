@@ -2,7 +2,7 @@ package calculator.domain;
 
 import java.util.regex.Pattern;
 
-public class Spliter {
+public class Splitter {
     private final static int BEGIN_INDEX_OF_SUBSTRING = 5;
     private static final String COMMA = Pattern.quote(BasicDelimiter.COMMA.getDelimiter());
     private static final String COLON = Pattern.quote(BasicDelimiter.COLON.getDelimiter());
@@ -10,7 +10,7 @@ public class Spliter {
     private final String string;
     private CustomDelimiter customDelimiter;
 
-    public Spliter(String string) {
+    public Splitter(String string) {
         this.string = string;
     }
 

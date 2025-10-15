@@ -1,7 +1,7 @@
 package calculator.controller;
 
 import calculator.domain.CustomDelimiter;
-import calculator.domain.Spliter;
+import calculator.domain.Splitter;
 import calculator.exception.ErrorMessage;
 import calculator.view.InputView;
 import calculator.view.OutputView;
@@ -27,14 +27,14 @@ public class StringCalculator {
     }
 
     private String[] splitString(String originalString) {
-        Spliter spliter = new Spliter(originalString);
+        Splitter splitter = new Splitter(originalString);
         CustomDelimiter delimiter = null;
         if (hasCustomDelimiter(originalString)) {
             char customDelimiter = originalString.charAt(INDEX_OF_CUSTOM_DELIMITER);
             delimiter = new CustomDelimiter(customDelimiter);
-            return spliter.split(delimiter);
+            return splitter.split(delimiter);
         }
-        return spliter.split(delimiter);
+        return splitter.split(delimiter);
     }
 
     private boolean hasCustomDelimiter(String string) {
