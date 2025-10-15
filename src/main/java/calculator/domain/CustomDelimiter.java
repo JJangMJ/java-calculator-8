@@ -5,7 +5,7 @@ public class CustomDelimiter {
     protected CustomDelimiter() {
     }
 
-    public static Character createDelimiter(Character delimiter) {
+    public static Character getDelimiter(Character delimiter) {
         return delimiter;
     }
 }

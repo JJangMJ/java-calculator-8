@@ -30,8 +30,11 @@ public class StringCalculator {
         if (hasCustomDelimiter(originalString)) {
             String substring = originalString.substring(BEGIN_INDEX_OF_SUBSTRING);
             char customDelimiter = originalString.charAt(INDEX_OF_CUSTOM_DELIMITER);
+            validateCustomDelimiter(customDelimiter);
+            validateContainDelimiter(substring, customDelimiter);
             return splitStringByDelimiters(substring, customDelimiter);
         }
+        validateContainDelimiter(originalString, null);
         return splitStringByDelimiters(originalString, null);
     }
 
@@ -46,16 +49,14 @@ public class StringCalculator {
         }
         return string.split(BasicDelimiter.COMMA.getDelimiter() + "|"
                 + BasicDelimiter.COLON.getDelimiter() + "|"
-                + CustomDelimiter.createDelimiter(customDelimiter));
+                + CustomDelimiter.getDelimiter(customDelimiter));
     }
 
     private List<Integer> parseIntegers(String[] splitString) {
         List<Integer> numbers = new ArrayList<>();
         for (String s : splitString) {
             String replacedAll = s.replaceAll("[^0-9]", "");
-            if (replacedAll.isEmpty()) {
-                replacedAll = "0";
-            }
+            if (replacedAll.isEmpty()) replacedAll = "0";
             numbers.add(Integer.parseInt(replacedAll));
         }
         return numbers;
@@ -63,5 +64,19 @@ public class StringCalculator {
 
     private int sum(List<Integer> numbers) {
         return numbers.stream().reduce(Integer::sum).get();
+    }
+
+    private void validateCustomDelimiter(Character customDelimiter) {
+        if (Character.isDigit(customDelimiter) || Character.isWhitespace(customDelimiter)) {
+            throw new IllegalArgumentException("구분자는 숫자나 공백이 될 수 없습니다.");
+        }
+    }
+
+    private void validateContainDelimiter(String substring, Character customDelimiter) {
+        if (!substring.contains(String.valueOf(customDelimiter)) &&
+                !substring.contains(BasicDelimiter.COMMA.getDelimiter()) &&
+                !substring.contains(BasicDelimiter.COLON.getDelimiter())) {
+            throw new IllegalArgumentException("구분자가 최소한 하나 이상이어야 합니다.");
+        }
     }
 }
