@@ -2,6 +2,7 @@ package calculator.controller;
 
 import calculator.domain.BasicDelimiter;
 import calculator.domain.CustomDelimiter;
+import calculator.exception.ErrorMessage;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 import java.util.ArrayList;
@@ -70,13 +71,13 @@ public class StringCalculator {
 
     private void validateCustomDelimiter(Character customDelimiter) {
         if (Character.isDigit(customDelimiter) || Character.isWhitespace(customDelimiter)) {
-            throw new IllegalArgumentException("구분자는 숫자나 공백이 될 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_CUSTOM_DELIMITER.getErrorMessage());
         }
     }
 
     private void validateNumber(String string) {
         if (Integer.parseInt(string) < 0) {
-            throw new IllegalArgumentException("음수는 허용되지 않습니다.");
+            throw new IllegalArgumentException(ErrorMessage.NEGATIVE_NUMBER_NOT_ALLOWED.getErrorMessage());
         }
     }
 }
