@@ -31,7 +31,6 @@ public class StringCalculator {
         CustomDelimiter delimiter = null;
         if (hasCustomDelimiter(originalString)) {
             char customDelimiter = originalString.charAt(INDEX_OF_CUSTOM_DELIMITER);
-            validateCustomDelimiter(customDelimiter);
             delimiter = new CustomDelimiter(customDelimiter);
             return spliter.split(delimiter);
         }
@@ -55,12 +54,6 @@ public class StringCalculator {
 
     private int sum(List<Integer> numbers) {
         return numbers.stream().reduce(Integer::sum).get();
-    }
-
-    private void validateCustomDelimiter(Character customDelimiter) {
-        if (Character.isDigit(customDelimiter) || Character.isWhitespace(customDelimiter)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_CUSTOM_DELIMITER.getErrorMessage());
-        }
     }
 
     private void validateNumber(String string) {
