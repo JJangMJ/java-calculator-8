@@ -17,7 +17,7 @@ public class StringCalculator {
         this.outputView = new OutputView();
     }
 
-    public void start() {
+    public void run() {
         String originalString = inputView.readString();
         String[] splitString = splitString(originalString);
         List<Integer> numbers = parseIntegers(splitString);
