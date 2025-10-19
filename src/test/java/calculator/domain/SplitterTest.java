@@ -60,4 +60,12 @@ public class SplitterTest {
 
         assertThat(splitString).contains("1", "2", "3", "4", "5");
     }
+
+    @Test
+    void 커스텀_구분자가_한_글자가_아니면_무시하고_기본_구분자만_적용한다() {
+        Splitter splitter = new Splitter("//ab\\n1ab2,3");
+        String[] splitString = splitter.split(null);
+
+        assertThat(splitString).containsExactly("//ab\\n1ab2", "3");
+    }
 }
