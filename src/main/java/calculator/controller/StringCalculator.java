@@ -46,6 +46,6 @@ public class StringCalculator {
     }
 
     private boolean hasCustomDelimiter(String string) {
-        return string != null && string.startsWith("//") && string.indexOf("\\n") > 2;
+        return string != null && string.startsWith("//") && string.indexOf("\\n") == 3;
     }
 }
