@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
-    void 문자와_숫자_섞인_토큰에서_숫자만_추출되어_정수로_파싱된다() {
+    void 문자와_숫자_섞인_문자열에서_숫자만_추출되어_정수로_파싱된다() {
         Parser parser = new Parser(new String[]{"nn1", "a2$", "3$$"});
         List<Integer> numbers = parser.parseIntegers();
 
