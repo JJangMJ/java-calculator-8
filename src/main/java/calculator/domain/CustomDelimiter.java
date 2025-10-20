@@ -18,5 +18,8 @@ public class CustomDelimiter {
         if (Character.isDigit(customDelimiter) || Character.isWhitespace(customDelimiter)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_CUSTOM_DELIMITER.getErrorMessage());
         }
+        if (customDelimiter == '.') {
+            throw new IllegalArgumentException(ErrorMessage.DOT_NOT_ALLOWED.getErrorMessage());
+        }
     }
 }

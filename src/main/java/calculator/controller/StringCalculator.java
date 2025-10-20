@@ -5,6 +5,7 @@ import calculator.domain.Parser;
 import calculator.domain.Splitter;
 import calculator.view.InputView;
 import calculator.view.OutputView;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class StringCalculator {
@@ -20,8 +21,8 @@ public class StringCalculator {
     public void run() {
         String originalString = inputView.readString();
         String[] splitString = splitString(originalString);
-        List<Integer> numbers = parseIntegers(splitString);
-        int totalSum = sum(numbers);
+        List<BigDecimal> numbers = parseIntegers(splitString);
+        BigDecimal totalSum = sum(numbers);
         outputView.printResult(totalSum);
     }
 
@@ -36,13 +37,13 @@ public class StringCalculator {
         return splitter.split(delimiter);
     }
 
-    private List<Integer> parseIntegers(String[] splitString) {
+    private List<BigDecimal> parseIntegers(String[] splitString) {
         Parser parser = new Parser(splitString);
         return parser.parseIntegers();
     }
 
-    private int sum(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).sum();
+    private BigDecimal sum(List<BigDecimal> numbers) {
+        return numbers.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private boolean hasCustomDelimiter(String string) {
