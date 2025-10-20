@@ -19,7 +19,7 @@ public class Parser {
             String replacedAll = string.replaceAll("[^0-9. \\-]", "");
             if (replacedAll.isEmpty()) replacedAll = "0";
             validateNumber(replacedAll);
-            numbers.add(new BigDecimal(replacedAll));
+            numbers.add(new BigDecimal(replacedAll.trim()));
         });
         return numbers;
     }
