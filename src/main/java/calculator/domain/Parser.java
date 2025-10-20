@@ -16,10 +16,11 @@ public class Parser {
     public List<BigDecimal> parseIntegers() {
         List<BigDecimal> numbers = new ArrayList<>();
         Arrays.stream(splitString).forEach(string -> {
-            String replacedAll = string.replaceAll("[^0-9. \\-]", "");
-            if (replacedAll.isEmpty()) replacedAll = "0";
-            validateNumber(replacedAll);
-            numbers.add(new BigDecimal(replacedAll.trim()));
+            String replacedAll = string.replaceAll("[^0-9. \\-\\s]", "");
+            String cleaned = replacedAll.replaceAll("\\s+", "");
+            if (cleaned.isEmpty()) cleaned = "0";
+            validateNumber(cleaned);
+            numbers.add(new BigDecimal(cleaned));
         });
         return numbers;
     }
