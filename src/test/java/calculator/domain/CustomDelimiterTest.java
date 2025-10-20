@@ -21,6 +21,13 @@ public class CustomDelimiterTest {
     }
 
     @Test
+    void 소수점은_커스텀_구분자로_쓸_수_없다() {
+        assertThatThrownBy(() -> new CustomDelimiter('.'))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.DOT_NOT_ALLOWED.getErrorMessage());
+    }
+
+    @Test
     void 일반_문자는_허용된다() {
         new CustomDelimiter(';');
         new CustomDelimiter('#');
